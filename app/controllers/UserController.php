@@ -16,7 +16,7 @@ class UserController extends Controller {
     }
 
     public function usersView() {
-        $this->returnView('./assets/views/users/usersView.html');
+        $this->returnView('./assets/views/users/asksView.html');
     }
 
 }

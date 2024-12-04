@@ -1,3 +1,72 @@
-p {
-    color: blue;
+
+
+h1, h3 {
+    font-style: italic;
+    text-align: center;
 }
+
+h1 {
+    padding-top: 3%;
+}
+
+h2 {
+    padding-left: 5%;
+}
+
+#courses-container, #works-container, #asks-container {
+    padding-left: 10%;
+    padding-bottom: 2%;
+}
+
+.course-container {
+    padding-bottom: 2%;
+}
+
+.workName {
+    font-weight: bold;
+}
+
+.work-container {
+    margin-right:30%;
+}
+
+.error-message {
+    color: red;
+}
+
+#linkedin {
+    text-align: center;
+    font-size: 30px;
+    display: block;
+}
+
+.ask-container {
+    padding-bottom: 1%;
+}
+
+.question {
+    text-align: center;
+  }
+  
+a.question {
+    display: block;
+    font-size: 50px;
+    padding-bottom: 3%;
+}
+
+body {
+    background-color: rgb(211, 226, 239);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.questionButton {
+    display: block;
+    margin: auto;
+    margin-bottom: 30px;
+    transform: scale(1.5);
+ }
+
+ .questionButton:hover {
+    transform: scale(1.7);
+ }

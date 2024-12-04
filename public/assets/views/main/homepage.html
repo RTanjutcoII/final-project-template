@@ -1,12 +1,108 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <!-- remember to route relative to index.php  -->
+        <title>Resume</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="./assets/js/homepage.js"></script>
-        <link rel="stylesheet" href="./assets/styles/homepage.css">
+        <link rel="stylesheet" type="text/css" href="./assets/styles/homepage.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     </head>
 
     <body>
-        <p>homepage!</p>
+        <h1>Ryan Jose Emmanuel Violago Tanjutco II</p>
+        <h3>Junior Fordham University Student | Computer Science Major | rtanjutcoii@fordham.edu</h3>
+        <a href="https://www.linkedin.com/in/ryanjoseemmanuelvt/" id="linkedin">LinkedIn Account</a>
+        <h2>Courses</h2>
+        <div id="courses-container"></div>
+        <h2>Work Experience</h2>
+        <div id="works-container"></div>
+        <h2>Asked Questions By:</h2>
+        <div id="asks-container"></div>
+
+        <button type="button" class="btn btn-primary submit-button margin-twenty questionButton">Would you like to ask a question?</button>
+
+        
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: `/api/courses`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#courses-container').html('')
+                        $.each(data, function (id, courses) {
+                            $('#courses-container').append(`
+                                <div class="course-container">
+                                    <span class="course">${courses['name']}</span> <br>
+                                </div>`)
+                        });
+                    },
+                    error: function () {
+                        console.log('failCourse');
+                        $('#courses-container').html(`
+                            <div class="error-message">
+                                <p>Failed to load courses. Please try again later.</p>
+                            </div>`);
+                    }
+                });
+                
+                $.ajax({
+                    url: `/api/works`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#works-container').html('')
+                        $.each(data, function (id, works) {
+                            $('#works-container').append(`
+                                <div class="work-container">
+                                    <span class="workName">${works['name']} (${works['active_years']})</span> <br>
+                                    <ul>${works['description']}</ul> <br>
+                                </div>`)
+                        });
+                    },
+                    error: function () {
+                        console.log('failWorks');
+                        $('#works-container').html(`
+                            <div class="error-message">
+                                <p>Failed to load works. Please try again later.</p>
+                            </div>`);
+                    }
+                });
+
+                $.ajax({
+                    url: `/api/asks`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#asks-container').html('')
+                        $.each(data, function (id, asks) {
+                            $('#asks-container').append(`
+                                <div class="ask-container">
+                                    <span class="ask">${asks['firstName']} ${asks['lastName']}</span> <br>
+                                </div>`)
+                        });
+                    },
+                    error: function () {
+                        console.log('failAsks');
+                        $('#asks-container').html(`
+                            <div class="error-message">
+                                <p>Failed to load asks. Please try again later.</p>
+                            </div>`);
+                    }
+                });
+
+                $(".questionButton").click(function() {
+                    window.location.href = "/asks"
+                });
+
+                
+            })
+
+
+
+        </script>
+
     </body>
 </html>
 

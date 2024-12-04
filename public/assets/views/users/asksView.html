@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>Questions</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="./assets/js/homepage.js"></script>
+        <link rel="stylesheet" type="text/css" href="./assets/styles/asksView.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+
+        <h1>Ask me a question and get your name featured!</h1>
+
+        <form id="form-id">
+            <div class="form-group">
+                <label for="firstName" id="firstName-label">First Name</label><br>
+                <label id="firstName-error"></label>
+                <input type="text" class="form-control" id="firstName"
+                       placeholder="Enter First Name">
+            </div>
+            <div class="form-group">
+                <label for="lastName" id="lastName-label">Last Name</label><br>
+                <label id="lastName-error"></label>
+                <input type="text" class="form-control" id="lastName"
+                       placeholder="Enter Last Name">
+            </div>
+            <div class="form-group">
+                <label for="question" id="question-label">Question</label><br>
+                <label id="question-error"></label>
+                <input type="text" class="form-control" id="question"
+                       placeholder="Enter Question">
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-button margin-twenty submitter">Submit</button>
+        </form>
+
+        <button type="button" class="btn btn-primary submit-button margin-twenty returnButton">Return Without Submitting</button>
+
+        <script>
+
+            $(document).ready(function () {
+
+                $('#form-id').on('submit', function (e) {
+                    e.preventDefault();
+                    const firstName = $('#firstName').val();
+                    const lastName = $('#lastName').val();
+                    const question = $('#question').val();
+
+                    const data = {
+                        firstName,
+                        lastName,
+                        question,
+                    }
+                    $.ajax({
+                        url: `/api/asks`,
+                        type: "POST",
+                        data: data,
+                        dataType: "json",
+                        success: function (data) {
+                            console.log(data)
+                            window.location.replace("/");
+                        },
+                        error: function (data){
+                            console.log(data.responseJSON)
+                            $('#firstName-error').html('')
+                            $('#lastName-error').html('')
+                            $('#question-error').html('')
+                            $('#firstName').removeClass('error-border')
+                            $('#lastName').removeClass('error-border')
+                            if (data.responseJSON?.requiredFirstName) {
+                                $('#firstName').addClass('error-border')
+                                $('#firstName-error').append(` <span class='error-text'>${data.responseJSON?.requiredFirstName}</span>`)
+                            }
+                            if (data.responseJSON?.firstNameShort) {
+                                $('#firstName').addClass('error-border')
+                                $('#firstName-error').append(` <span class='error-text'>${data.responseJSON?.firstNameShort}</span>`)
+                            }
+                            if (data.responseJSON?.requiredLastName) {
+                                $('#lastName').addClass('error-border')
+                                $('#lastName-error').append(` <span class='error-text'>${data.responseJSON?.requiredLastName}</span>`)
+                            }
+                            if (data.responseJSON?.lastNameShort) {
+                                $('#question').addClass('error-border')
+                                $('#question-error').append(` <span class='error-text'>${data.responseJSON?.lastNameShort}</span>`)
+                            }
+                            if (data.responseJSON?.requiredQuestion) {
+                                $('#question').addClass('error-border')
+                                $('#question-error').append(` <span class='error-text'>${data.responseJSON?.requiredQuestion}</span>`)
+                            }
+                            if (data.responseJSON?.questionShort) {
+                                $('#question').addClass('error-border')
+                                $('#question-error').append(` <span class='error-text'>${data.responseJSON?.questionShort}</span>`)
+                            }
+                        }
+                    });
+                })
+
+                $(".returnButton").click(function() {
+                    window.location.replace("/");
+                });
+
+            })
+
+
+        </script>
+
+    </body>
+</html>
+
