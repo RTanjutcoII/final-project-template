@@ -58,7 +58,7 @@ class AskController extends Controller {
     }
 
     public function asksView() {
-        $this->returnView('./assets/views/users/asksView.html');
+        $this->returnView('./assets/views/asks/asksView.html');
     }
 
     public function saveAsk() {

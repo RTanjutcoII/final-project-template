@@ -12,17 +12,17 @@
     <body>
         <h1>Ryan Jose Emmanuel Violago Tanjutco II</p>
         <h3>Junior Fordham University Student | Computer Science Major | rtanjutcoii@fordham.edu</h3>
-        <a href="https://www.linkedin.com/in/ryanjoseemmanuelvt/" id="linkedin">LinkedIn Account</a>
+        <a href="https://www.linkedin.com/in/ryanjoseemmanuelvt/" id="linkedin"><img src="../assets/images/linkedin.png" alt="LinkedIn Logo" class="logo"></a>
+        
         <h2>Courses</h2>
         <div id="courses-container"></div>
         <h2>Work Experience</h2>
         <div id="works-container"></div>
-        <h2>Asked Questions By:</h2>
+        <h2>Comments:</h2>
         <div id="asks-container"></div>
 
-        <button type="button" class="btn btn-primary submit-button margin-twenty questionButton">Would you like to ask a question?</button>
+        <button type="button" class="btn btn-primary submit-button margin-twenty questionButton">Would you like to leave a comment?</button>
 
-        
         <script>
             $(document).ready(function () {
                 $.ajax({
@@ -80,6 +80,7 @@
                             $('#asks-container').append(`
                                 <div class="ask-container">
                                     <span class="ask">${asks['firstName']} ${asks['lastName']}</span> <br>
+                                    <ul>${asks['question']}</ul>
                                 </div>`)
                         });
                     },

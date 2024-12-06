@@ -15,7 +15,6 @@ class Router {
     {
         $this->urlArray = $this->routeSplit();
         $this->handleMainRoutes();
-        $this->handleUserRoutes();
         $this->handleCourseRoutes();
         $this->handleWorkRoutes();
         $this->handleAskRoutes();
@@ -30,19 +29,6 @@ class Router {
         if ($this->urlArray[1] === '' && $_SERVER['REQUEST_METHOD'] === 'GET') {
             $mainController = new MainController();
             $mainController->homepage();
-        }
-    }
-
-    protected function handleUserRoutes() {
-        if ($this->urlArray[1] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->usersView();
-        }
-
-        //give json/API requests a api prefix
-        if ($this->urlArray[1] === 'api' && $this->urlArray[2] === 'users' && $_SERVER['REQUEST_METHOD'] === 'GET') {
-            $userController = new UserController();
-            $userController->getUsers();
         }
     }
 
