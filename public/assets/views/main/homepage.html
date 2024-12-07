@@ -14,12 +14,16 @@
         <h3>Junior Fordham University Student | Computer Science Major | rtanjutcoii@fordham.edu</h3>
         <a href="https://www.linkedin.com/in/ryanjoseemmanuelvt/" id="linkedin"><img src="../assets/images/linkedin.png" alt="LinkedIn Logo" class="logo"></a>
         
-        <h2>Courses</h2>
+        <h2>Courses Taken</h2>
         <div id="courses-container"></div>
         <h2>Work Experience</h2>
         <div id="works-container"></div>
         <h2>Comments:</h2>
         <div id="asks-container"></div>
+        
+        <h2 class="weather-title">If the weather's nice, it's easy to meet for a coffee meeting.</h2><br>
+        <h2 class="weather-title"> Current weather in New York City:</h2>
+        <div id="weather-status"></div>
 
         <button type="button" class="btn btn-primary submit-button margin-twenty questionButton">Would you like to leave a comment?</button>
 
@@ -80,8 +84,8 @@
                             $('#asks-container').append(`
                                 <div class="ask-container">
                                     <span class="ask">${asks['firstName']} ${asks['lastName']}</span> <br>
-                                    <ul>${asks['question']}</ul>
-                                </div>`)
+                                    <ul class="question">${asks['question']}</ul>
+                                </div> <br>`)
                         });
                     },
                     error: function () {
@@ -92,6 +96,54 @@
                             </div>`);
                     }
                 });
+
+                $.ajax({
+                 url: "https://api.open-meteo.com/v1/forecast?latitude=40.7143&longitude=-74.006&current=temperature_2m,is_day&hourly=rain&timezone=America%2FNew_York&forecast_days=1",
+                 type: "GET",
+                 dataType: "json",
+                 success: function (data) {
+                    console.log('successWeather');
+                    var temp = data.current.temperature_2m;
+                    var isDay = data.current.is_day;
+                    var rain = data.hourly.rain;
+
+                    $("#weather-status").append(temp + " °C" + `<br>`);
+
+                    if(isDay == 0) {
+                        $("#weather-status").append(`
+                            <span class="weather-comment">It's a bit too dark outside to meet. Contact me tomorrow!</span><br>
+                        `)
+                    }
+                    else if(rain > 8) {
+                        $("#weather-status").append(`
+                            <span class="weather-comment">It's too rainy to meet right now. Contact me when the skies are clearer!</span><br>
+                        `)
+                    }
+                    else if(temp < 2) {
+                        $("#weather-status").append(`
+                            <span class="weather-comment">It's too cold to meet right now. Let's wait for the temperature to rise.</span><br>
+                        `)
+                    }
+                    else if(temp > 35) {
+                        $("#weather-status").append(`
+                            <span class="weather-comment">It's too hot to meet right now. Let's wait for the temperature to cool.</span><br>
+                        `)
+                    }
+                    else {
+                        $("#weather-status").append(`
+                            <span class="weather-comment">It's the perfect time to meet up!</span><br>
+                        `)
+                    }
+
+                    $("#weather-status").append(`
+                            <span class="weather-comment">If you need me immediately, here's my phone number: <b>+1 917 536 6252</b></span>
+                        `)
+
+                 },
+                 error: function () {
+                        console.log('failWeather');
+                    }
+                })
 
                 $(".questionButton").click(function() {
                     window.location.href = "/asks"

@@ -7,7 +7,7 @@ body {
 h1 {
     font-style: italic;
     text-align: center;
-    padding-top: 3%;
+    padding-top: 50px;
 }
 
 form, a {
@@ -20,10 +20,9 @@ form, a {
 
 input {
     width: 70vw;
-    height: 7vh;
-    font-size: 5vh;
+    height: 60px;
+    font-size: 45px;
 }
-
 
 
 .submitter, .returnButton {
@@ -48,5 +47,9 @@ input {
 
 #firstName-label, #lastName-label, #question-label {
     font-size: 27px;
+    display: block;
+    padding-bottom: 15px;
+
     
 }
+

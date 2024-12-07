@@ -11,7 +11,7 @@ h1, h3 {
 }
 
 h1 {
-    padding-top: 3%;
+    padding-top: 50px;
 }
 
 h2 {
@@ -22,6 +22,7 @@ h2 {
     padding-left: 10%;
     padding-bottom: 2%;
 }
+
 
 .course-container {
     padding-bottom: 2%;
@@ -49,7 +50,11 @@ h2 {
 }
 
 .ask-container {
-    padding-bottom: 1%;
+    border-radius: 25px;
+    background: white;
+    padding: 20px;
+    width: 70%;
+    height: 100%;
 }
 
 .questionButton {
@@ -68,3 +73,32 @@ h2 {
     height:150px;
     margin-bottom: -20px;
  }
+
+ #weather-status {
+    text-align: center;
+    padding-bottom: 30px;
+    font-size: 40px;
+ }
+
+ .weather-title {
+    text-align: center;
+    padding: 0%;
+ }
+
+ .weather-comment {
+    font-size: 16px;
+ }
+
+ .ask {
+    color:black;
+    border-radius: 25px;
+    font-size: 20px;
+}
+
+.question {
+    color:black;
+}
+
+ul {
+    word-wrap:break-word;
+}
